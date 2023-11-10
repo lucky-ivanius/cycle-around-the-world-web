@@ -1,0 +1,33 @@
+<div class="flex flex-col items-center justify-start gap-8 p-8">
+  <div *ngIf="isLoading">Loading...</div>
+
+  <ol
+    *ngIf="!isLoading"
+    class="flex flex-col items-center justify-center gap-2 container"
+  >
+    @for (item of spots; track $index) {
+    <li class="w-1/2">
+      <button
+        class="flex items-center justify-between w-full p-4 rounded bg-sky-100 hover:bg-sky-300"
+        (click)="selectSpot(item.slug)"
+      >
+        <span class="font-bold">{{ item.name }}</span>
+        <span>
+          {{ item.cyclingAccessibility ? "🚴" : "🙁" }}
+        </span>
+      </button>
+    </li>
+    } @empty {
+    <span>No spots</span>
+    }
+  </ol>
+  <div>
+    <button
+      type="button"
+      class="px-4 py-1 text-sm bg-orange-500 rounded text-white font-bold disabled:bg-orange-200 disabled:text-gray-200"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </div>
+</div>

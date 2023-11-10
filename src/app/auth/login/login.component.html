@@ -1,0 +1,33 @@
+<div class="flex flex-col items-center justify-start gap-8 p-8">
+  <div class="w-1/4 bg-red-200 px-8 py-4 rounded" [hidden]="!error">
+    {{ error }}
+  </div>
+
+  <form
+    class="flex flex-col items-center justify-start gap-4 w-full container"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <input
+      type="text"
+      name="username"
+      formControlName="username"
+      placeholder="Username"
+      class="border border-slate-300 rounded px-2 py-1 w-1/4"
+    />
+    <input
+      type="password"
+      name="password"
+      formControlName="password"
+      placeholder="Password"
+      class="border border-slate-300 rounded px-2 py-1 w-1/4"
+    />
+    <button
+      type="submit"
+      class="bg-blue-600 px-4 py-2 rounded text-white w-1/4 font-semibold disabled:bg-blue-200 disabled:cursor-not-allowed"
+      [disabled]="isLoading"
+    >
+      Login
+    </button>
+  </form>
+</div>

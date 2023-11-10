@@ -1,0 +1,159 @@
+<div class="flex flex-col items-center justify-start gap-8 p-8">
+  <button
+    type="button"
+    class="px-4 py-1 border border-yellow-800 bg-gradient-to-br from-yellow-300 to-orange-100 rounded font-semibold text-sm"
+    (click)="goToSpotList()"
+  >
+    Return to spot list
+  </button>
+  <div *ngIf="isLoading">Loading...</div>
+  <div
+    *ngIf="!isLoading && spot"
+    class="flex flex-col items-center justify-start gap-8 w-2/3"
+  >
+    <h3 class="font-semibold text-2xl">{{ spot.name }}</h3>
+    <table class="table-auto w-4/5">
+      <tbody>
+        <tr>
+          <td class="border px-8 py-4">Accessible by Cycling?</td>
+          <td class="border px-8 py-4 font-bold">
+            {{ spot.cyclingAccessibility ? "Yes" : "No" }}
+          </td>
+        </tr>
+        <tr>
+          <td class="border px-8 py-4">Longitude</td>
+          <td class="border px-8 py-4 font-bold">
+            {{ spot.longitude }}
+          </td>
+        </tr>
+        <tr>
+          <td class="border px-8 py-4">Latitude</td>
+          <td class="border px-8 py-4 font-bold">
+            {{ spot.latitude }}
+          </td>
+        </tr>
+        <tr *ngIf="spot.cyclingAccessibility">
+          <td class="border px-8 py-4">Distance</td>
+          <td class="border px-8 py-4 font-bold">
+            <span *ngIf="spot.distanceInKilometers"
+              >{{ spot.distanceInKilometers.toFixed(2) }} km</span
+            >
+            <span *ngIf="!spot.distanceInKilometers">Unknown</span>
+          </td>
+        </tr>
+        <tr *ngIf="spot.cyclingAccessibility">
+          <td class="border px-8 py-4">ETA</td>
+          <td class="border px-8 py-4 font-bold">
+            <span *ngIf="cyclingEstimatedTime" class="mr-4"
+              >{{
+                cyclingEstimatedTime.estimatedArrivalTimestamp | dateTimeFormat
+              }}
+              ({{
+                cyclingEstimatedTime.estimatedArrivalHours | timeFormat
+              }})</span
+            >
+            <span *ngIf="!cyclingEstimatedTime" class="mr-4">Unknown</span>
+            <button
+              type="button"
+              class="px-4 py-1 text-sm bg-teal-500 rounded text-white disabled:bg-teal-200 disabled:text-gray-200"
+              *ngIf="spot.distanceInKilometers"
+              (click)="getCyclingEstimatedTime()"
+              [disabled]="isCalculating"
+            >
+              Estimate
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <form
+      *ngIf="spot.cyclingAccessibility"
+      [formGroup]="calculateDistanceForm"
+      class="flex flex-col items-center justify-start gap-4 w-1/2"
+    >
+      <div class="flex flex-col items-start justify-start gap-2 w-full">
+        <div class="flex items-center justify-between gap-4 w-full">
+          <label for="cyclingSpeed" class="w-full">Cycling Speed (km/h)</label>
+          <input
+            type="number"
+            name="cyclingSpeed"
+            formControlName="cyclingSpeed"
+            min="0"
+            class="w-full px-1 py-1 border border-slate-200"
+          />
+        </div>
+        <span
+          *ngIf="
+            calculateDistanceForm.get('cyclingSpeed')?.getError('required')
+          "
+          class="text-sm text-red-400 italic"
+        >
+          Cycling speed is required
+        </span>
+        <span
+          *ngIf="calculateDistanceForm.get('cyclingSpeed')?.getError('min')"
+          class="text-sm text-red-400 italic"
+        >
+          Cycling speed must be greater than
+          {{ calculateDistanceForm.get("cyclingSpeed")?.getError("min").min }}
+        </span>
+      </div>
+      <div class="flex flex-col items-start justify-start gap-2 w-full">
+        <div class="flex items-center justify-between gap-4 w-full">
+          <label for="dailyCyclingHours" class="w-full"
+            >Daily cycling hours</label
+          >
+          <input
+            type="number"
+            name="dailyCyclingHours"
+            formControlName="dailyCyclingHours"
+            min="0"
+            max="24"
+            class="w-full px-1 py-1 border border-slate-200"
+          />
+        </div>
+        <span
+          *ngIf="
+            calculateDistanceForm.get('dailyCyclingHours')?.getError('required')
+          "
+          class="text-sm text-red-400 italic"
+        >
+          Daily cycling hours is required
+        </span>
+        <span
+          *ngIf="
+            calculateDistanceForm.get('dailyCyclingHours')?.getError('min')
+          "
+          class="text-sm text-red-400 italic"
+        >
+          Daily cycling hours must be greater than
+          {{
+            calculateDistanceForm.get("dailyCyclingHours")?.getError("min").min
+          }}
+        </span>
+        <span
+          *ngIf="
+            calculateDistanceForm.get('dailyCyclingHours')?.getError('max')
+          "
+          class="text-sm text-red-400 italic"
+        >
+          Daily cycling hours must be greater than or equal to
+          {{
+            calculateDistanceForm.get("dailyCyclingHours")?.getError("max").max
+          }}
+        </span>
+      </div>
+      <button
+        type="button"
+        class="px-4 py-1 text-sm bg-purple-500 rounded text-white font-bold disabled:bg-purple-200 disabled:text-gray-200"
+        (click)="calculateDistance()"
+        [disabled]="isCalculating"
+      >
+        Calculate
+      </button>
+    </form>
+  </div>
+  <div *ngIf="!isLoading && !spot">
+    <span class="font-bold text-red-500 text-xl">{{ error }}</span>
+  </div>
+</div>
