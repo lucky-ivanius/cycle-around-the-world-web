@@ -29,7 +29,10 @@ export class SpotsListComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        if (err.status === 401) this.router.parseUrl('/login');
+        if (err.status === 401) {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
 
         this.isLoading = false;
       },

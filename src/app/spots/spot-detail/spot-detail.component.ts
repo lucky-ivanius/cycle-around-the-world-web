@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { DateTimeFormatPipe } from '../../pipes/date-time.pipe';
 import { TimeFormatPipe } from '../../pipes/time.pipe';
+import { AuthService } from '../../auth/services/auth.service';
 
 interface CalculateDistanceForm {
   cyclingSpeed: number;
@@ -32,6 +33,7 @@ interface CalculateDistanceForm {
   templateUrl: './spot-detail.component.html',
 })
 export class SpotDetailComponent implements OnInit {
+  private authService = inject(AuthService);
   private spotsService = inject(SpotsService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
@@ -68,7 +70,10 @@ export class SpotDetailComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        if (err.status === 401) this.router.parseUrl('/login');
+        if (err.status === 401) {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
         if (err.status === 404) this.error = err.error.message;
 
         this.isLoading = false;
@@ -102,7 +107,10 @@ export class SpotDetailComponent implements OnInit {
             this.isCalculating = false;
           },
           error: (err) => {
-            if (err.status === 401) this.router.parseUrl('/login');
+            if (err.status === 401) {
+              this.authService.logout();
+              this.router.navigate(['/login']);
+            }
             if (err.status === 400) window.alert(err.error.message);
             if (err.status === 404) this.error = err.error.message;
 
@@ -128,7 +136,10 @@ export class SpotDetailComponent implements OnInit {
         this.isCalculating = false;
       },
       error: (err) => {
-        if (err.status === 401) this.router.parseUrl('/login');
+        if (err.status === 401) {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
         if (err.status === 400) window.alert(err.error.message);
         if (err.status === 404) this.error = err.error.message;
 
