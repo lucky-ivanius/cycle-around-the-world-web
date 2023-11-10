@@ -7,7 +7,6 @@ import { formatDuration, intervalToDuration } from 'date-fns';
 })
 export class TimeFormatPipe implements PipeTransform {
   transform(hours: number): string {
-    console.log(hours);
     const msInterval = hours * 60 * 60 * 1000;
 
     const duration = intervalToDuration({ start: 0, end: msInterval });
