@@ -47,8 +47,7 @@ type CyclingEstimatedTimeAPIResponse = CyclingEstimatedTime;
 })
 export class SpotsService {
   private http = inject(HttpClient);
-  private spotsApi =
-    'https://cycle-around-the-world-qks6za5td-luckyivanius.vercel.app/api/v1/spots';
+  private spotsApi = 'https://cycle-around-the-world.vercel.app/api/v1/spots';
   private authService = inject(AuthService);
 
   getSpots(): Observable<SpotsAPIResponse> {

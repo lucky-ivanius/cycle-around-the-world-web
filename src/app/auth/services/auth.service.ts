@@ -14,7 +14,7 @@ type LoginAPIResponse = Token;
 export class AuthService {
   private http: HttpClient = inject(HttpClient);
   private loginApi =
-    'https://cycle-around-the-world-qks6za5td-luckyivanius.vercel.app/api/v1/auth/login';
+    'https://cycle-around-the-world.vercel.app/api/v1/auth/login';
 
   private authTokenKey = 'token'; // Key for storing the JWT token in local storage
   private isTokenProvided = false;
