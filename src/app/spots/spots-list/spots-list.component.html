@@ -3,10 +3,10 @@
 
   <ol
     *ngIf="!isLoading"
-    class="flex flex-col items-center justify-center gap-2 container"
+    class="container flex flex-col items-center justify-center gap-2"
   >
     @for (item of spots; track $index) {
-    <li class="w-1/2">
+    <li class="w-full md:w-1/2">
       <button
         class="flex items-center justify-between w-full p-4 rounded bg-sky-100 hover:bg-sky-300"
         (click)="selectSpot(item.slug)"
@@ -24,7 +24,7 @@
   <div>
     <button
       type="button"
-      class="px-4 py-1 text-sm bg-orange-500 rounded text-white font-bold disabled:bg-orange-200 disabled:text-gray-200"
+      class="px-4 py-2 text-sm font-bold text-white bg-orange-500 rounded md:py-1 disabled:bg-orange-200 disabled:text-gray-200"
       (click)="logout()"
     >
       Logout

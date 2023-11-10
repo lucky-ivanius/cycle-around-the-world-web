@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center justify-start gap-8 p-8">
-  <div class="w-1/4 px-8 py-4 bg-red-200 rounded" [hidden]="!error">
+  <div class="w-full px-8 py-4 bg-red-200 rounded md:w-1/4" [hidden]="!error">
     {{ error }}
   </div>
 
@@ -13,18 +13,18 @@
       name="username"
       formControlName="username"
       placeholder="Username"
-      class="w-1/4 px-2 py-1 border rounded border-slate-300"
+      class="w-full px-2 py-1 border rounded md:w-1/4 border-slate-300"
     />
     <input
       type="password"
       name="password"
       formControlName="password"
       placeholder="Password"
-      class="w-1/4 px-2 py-1 border rounded border-slate-300"
+      class="w-full px-2 py-1 border rounded md:w-1/4 border-slate-300"
     />
     <button
       type="submit"
-      class="w-1/4 px-4 py-2 font-semibold text-white bg-blue-600 rounded disabled:bg-blue-200 disabled:cursor-not-allowed"
+      class="w-full px-2 py-1 font-semibold text-white bg-blue-600 rounded md:w-1/4 disabled:bg-blue-200 disabled:cursor-not-allowed"
       [disabled]="isLoading"
     >
       Login
