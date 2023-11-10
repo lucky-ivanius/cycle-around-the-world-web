@@ -14,7 +14,7 @@ type LoginAPIResponse = Token;
 export class AuthService {
   private http: HttpClient = inject(HttpClient);
   private loginApi =
-    'http://ec2-54-169-172-202.ap-southeast-1.compute.amazonaws.com:3001/api/v1/auth/login';
+    'http://ec2-18-140-54-4.ap-southeast-1.compute.amazonaws.com:3001/api/v1/auth/login';
 
   private authTokenKey = 'token'; // Key for storing the JWT token in local storage
   private isTokenProvided = false;

@@ -48,7 +48,7 @@ type CyclingEstimatedTimeAPIResponse = CyclingEstimatedTime;
 export class SpotsService {
   private http = inject(HttpClient);
   private spotsApi =
-    'http://ec2-54-169-172-202.ap-southeast-1.compute.amazonaws.com:3001/api/v1/spots';
+    'http://ec2-18-140-54-4.ap-southeast-1.compute.amazonaws.com:3001/api/v1/spots';
   private authService = inject(AuthService);
 
   getSpots(): Observable<SpotsAPIResponse> {
