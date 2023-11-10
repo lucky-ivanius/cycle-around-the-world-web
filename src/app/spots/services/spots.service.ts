@@ -48,7 +48,7 @@ type CyclingEstimatedTimeAPIResponse = CyclingEstimatedTime;
 export class SpotsService {
   private http = inject(HttpClient);
   private spotsApi =
-    'http://ec2-18-140-54-4.ap-southeast-1.compute.amazonaws.com:3001/api/v1/spots';
+    'https://cycle-around-the-world-qks6za5td-luckyivanius.vercel.app/api/v1/spots';
   private authService = inject(AuthService);
 
   getSpots(): Observable<SpotsAPIResponse> {
